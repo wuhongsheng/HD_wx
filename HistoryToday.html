@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>  
+<html>  
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+<title>历史上的今天</title>  
+<link rel="stylesheet" type="text/css" href="HistoryToday.css" />  
+<script language="javascript" src="http://webapi.amap.com/maps?
+
+v=1.2&key=5fac4e65fba8f3eecc158ee85299036d"></script>  
+<script type="text/javascript">  
+var Hisdate=ToDate.toLocaleDateString().toString() ; 
+</script>  
+</head>
+<body onLoad="mapInit()">  
+    <div id="iCenter"></div>  
+  
+<!-- tongji begin-->  
+<script type="text/javascript">  
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");  
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%
+
+3Faeff88f19045b513af7681b011cea3bd' type='text/javascript'%3E%3C/script%3E"));  
+</script>  
+<!-- tongji end -->  
+</body>  
+<script language="javascript">  
+var ToDate = new Date();
+var Hisdate=ToDate.toLocaleDateString().toString() ; 
+
+var mapObj;  
+var point = new AMap.LngLat(114.433594,33.651208);  
+function mapInit(){   //初始化地图对象，加载地图。 
+    //mapObj.setZoomAndCenter(4,new AMap.LngLat(114.433594,33.651208)); 
+    mapObj = new AMap.Map("iCenter",{  
+    center : point, //地图中心点  
+    level : 4  //地图显示的缩放级别  
+    });  
+	 //mapObj.setZoomAndCenter(4,new AMap.LngLat(114.433594,33.651208));
+    //AMap.event.addListener(mapObj,'click',getLnglat); //点击事件  
+	addCloudLayer();
+}  
+//鼠标点击，获取经纬度坐标    
+/*function getLnglat(e){      
+    var x = e.lnglat.getLng();  
+    var y = e.lnglat.getLat();   
+    document.getElementById("lnglat").innerHTML = x + "," + y;      
+}  
+*/
+
+function to2D(){  
+    buildingLayer.setMap(null);  
+    roadNetLayer.setMap(null);  
+    trafficLayer.setMap(null);  
+    mapObj.setZoom(15);  
+    groundImage.hide();  
+    google.setMap(null);   
+    //cloudDataLayer.setMap(null);  
+}  
+
+/* 
+ *叠加云数据图层 
+ */  
+function addCloudLayer(){  
+    mapObj.setZoom(4);  
+    //groundImage.hide();     
+   var Hisdate=getdate();
+    //加载云图层插件    
+    mapObj.plugin('AMap.CloudDataLayer', function () {    
+        var layerOptions = {     
+            query:{keywords: Hisdate},     
+            clickable:true    
+        };    
+        var cloudDataLayer = new AMap.CloudDataLayer('53d60cc8e4b00c90f140ad65', 
+
+layerOptions); //实例化云图层类    
+        cloudDataLayer.setMap(mapObj); //叠加云图层到地图   
+		  AMap.event.addListener(cloudDataLayer, 'click', function (result) {  
+            var clouddata = result.data;  
+            var infoWindow = new AMap.InfoWindow({  
+                content:"<h3><font face=\"微软雅黑\"color=\"#3366FF\">"+ clouddata._name 
+
++"</font></h3><hr />历史事件："+ clouddata.Event + "<br />"+ "地点：" + clouddata._address+ 
+
+"<br />" ,
+                size:new AMap.Size(300, 0),  
+                autoMove:true,  
+                offset:new AMap.Pixel(0,-5)  
+            });  
+              
+            infoWindow.open(mapObj, clouddata._location);  
+        });  
+        });  
+}  
+function getdate()
+{
+var now=new Date()
+y=now.getFullYear()
+m=now.getMonth()+1
+d=now.getDate()
+//m=m<10?"0"+m:m
+//d=d<10?"0"+d:d
+return m+"月"+d+"日"
+} 
+/*function getType(medicalspecialists){
+    var op={
+        query:{keywords:medicalspecialists}
+    }
+    cloudDataLayer.setOptions(op)
+}
+*/
+</script>  
+</html>  

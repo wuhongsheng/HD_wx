@@ -1,0 +1,21 @@
+{
+    "button": [
+        {
+            "type": "view", 
+            "name": "微信接口", 
+            "key": "V1001_TODAY_MUSIC",
+            "url": "http://wudoudou.sinaapp.com/test/sample.php"
+        }, 
+        {
+            "type": "view", 
+            "name": "日历记事", 
+            "key": "V1001_Calendar",
+            "url": "http://wudoudou.sinaapp.com/test/bootstrap-year-calendar.html"
+        }, 
+        {
+            "type": "click", 
+            "name": "宏豆商城", 
+            "key": "V1001_HD_STORE"
+        }
+    ]
+}
